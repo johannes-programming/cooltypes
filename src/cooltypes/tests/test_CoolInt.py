@@ -1,6 +1,6 @@
 import unittest
 
-from cooltypes.CoolInt import CoolInt
+from cooltypes.core.CoolInt import CoolInt
 
 
 class TestCoolInt(unittest.TestCase):
