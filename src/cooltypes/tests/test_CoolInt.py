@@ -1,5 +1,7 @@
 import unittest
+
 from cooltypes.CoolInt import CoolInt
+
 
 class TestCoolInt(unittest.TestCase):
 
@@ -19,7 +21,7 @@ class TestCoolInt(unittest.TestCase):
         self.assertEqual(self.a * self.b, CoolInt(30))
         self.assertEqual(self.a // self.b, CoolInt(3))
         self.assertEqual(self.a % self.b, CoolInt(1))
-        self.assertEqual(self.a ** self.b, CoolInt(1000))
+        self.assertEqual(self.a**self.b, CoolInt(1000))
         self.assertEqual(self.a & self.b, CoolInt(10 & 3))
         self.assertEqual(self.a | self.b, CoolInt(10 | 3))
         self.assertEqual(self.a ^ self.b, CoolInt(10 ^ 3))
@@ -32,7 +34,7 @@ class TestCoolInt(unittest.TestCase):
         self.assertEqual(3 * self.a, CoolInt(30))
         self.assertEqual(30 // self.a, CoolInt(3))
         self.assertEqual(13 % self.a, CoolInt(3))
-        self.assertEqual(2 ** self.b, CoolInt(8))
+        self.assertEqual(2**self.b, CoolInt(8))
         self.assertEqual(10 & self.b, CoolInt(10 & 3))
         self.assertEqual(10 | self.b, CoolInt(10 | 3))
         self.assertEqual(10 ^ self.b, CoolInt(10 ^ 3))
@@ -45,6 +47,6 @@ class TestCoolInt(unittest.TestCase):
         self.assertIsInstance(3 * self.a, CoolInt)
         self.assertIsInstance(~self.a, CoolInt)
 
+
 if __name__ == "__main__":
     unittest.main()
-
