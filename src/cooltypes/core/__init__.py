@@ -1,1 +1,1 @@
-from cooltypes.CoolInt import *
+from cooltypes.core.CoolInt import *
