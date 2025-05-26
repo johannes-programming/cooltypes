@@ -56,6 +56,10 @@ class CoolInt(int):
         "This magic method implements self&other."
         return self.__op2(operator.and_, self, other)
 
+    def __divmod__(self: Self, other: SupportsIndex, /) -> Self:
+        "This magic method implements divmod(self, other)."
+        return (self // other), (self % other)
+
     def __floordiv__(self: Self, other: SupportsIndex, /) -> Self:
         "This magic method implements self//other."
         return self.__op2(operator.floordiv, self, other)
@@ -100,6 +104,10 @@ class CoolInt(int):
     def __rand__(self: Self, other: SupportsIndex, /) -> Self:
         "This magic method implements other&self."
         return self.__op2(operator.and_, other, self)
+
+    def __rdivmod__(self: Self, other: SupportsIndex, /) -> Self:
+        "This magic method implements divmod(other, self)."
+        return (other // self), (other % self)
 
     def __rfloordiv__(self: Self, other: SupportsIndex, /) -> Self:
         "This magic method implements other//self."
