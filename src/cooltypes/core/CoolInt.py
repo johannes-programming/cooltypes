@@ -1,7 +1,10 @@
 import operator
+from types import NotImplementedType
 from typing import *
 
 __all__ = ["CoolInt"]
+
+OP2 = Self | NotImplementedType
 
 
 class CoolInt(int):
@@ -17,11 +20,17 @@ class CoolInt(int):
         cls: type,
         /,
         operation: Callable,
-        left: SupportsIndex,
-        right: SupportsIndex,
-    ) -> Self:
+        left: Any,
+        right: Any,
+    ) -> OP2:
         "This private classmethod implements binary operators."
-        return cls(operation(operator.index(left), operator.index(right)))
+        try:
+            l: int = operator.index(left)
+            r: int = operator.index(right)
+        except:
+            return NotImplemented
+        else:
+            return cls(operation(l, r))
 
     # internal magic
 
@@ -48,99 +57,99 @@ class CoolInt(int):
         return self.__op1(operator.pos)
 
     # normal binary operators
-    def __add__(self: Self, other: SupportsIndex, /) -> Self:
+    def __add__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self+other."
         return self.__op2(operator.add, self, other)
 
-    def __and__(self: Self, other: SupportsIndex, /) -> Self:
+    def __and__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self&other."
         return self.__op2(operator.and_, self, other)
 
-    def __divmod__(self: Self, other: SupportsIndex, /) -> Self:
+    def __divmod__(self: Self, other: Any, /) -> OP2:
         "This magic method implements divmod(self, other)."
         return (self // other), (self % other)
 
-    def __floordiv__(self: Self, other: SupportsIndex, /) -> Self:
+    def __floordiv__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self//other."
         return self.__op2(operator.floordiv, self, other)
 
-    def __lshift__(self: Self, other: SupportsIndex, /) -> Self:
+    def __lshift__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self<<other."
         return self.__op2(operator.lshift, self, other)
 
-    def __mod__(self: Self, other: SupportsIndex, /) -> Self:
+    def __mod__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self%other."
         return self.__op2(operator.mod, self, other)
 
-    def __mul__(self: Self, other: SupportsIndex, /) -> Self:
+    def __mul__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self*other."
         return self.__op2(operator.mul, self, other)
 
-    def __or__(self: Self, other: SupportsIndex, /) -> Self:
+    def __or__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self|other."
         return self.__op2(operator.or_, self, other)
 
-    def __pow__(self: Self, other: SupportsIndex, /) -> Self:
+    def __pow__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self**other."
         return self.__op2(operator.pow, self, other)
 
-    def __rshift__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rshift__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self>>other."
         return self.__op2(operator.rshift, self, other)
 
-    def __sub__(self: Self, other: SupportsIndex, /) -> Self:
+    def __sub__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self-other."
         return self.__op2(operator.sub, self, other)
 
-    def __xor__(self: Self, other: SupportsIndex, /) -> Self:
+    def __xor__(self: Self, other: Any, /) -> OP2:
         "This magic method implements self^other."
         return self.__op2(operator.xor, self, other)
 
     # reverse binary operators
-    def __radd__(self: Self, other: SupportsIndex, /) -> Self:
+    def __radd__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other+self."
         return self.__op2(operator.add, other, self)
 
-    def __rand__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rand__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other&self."
         return self.__op2(operator.and_, other, self)
 
-    def __rdivmod__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rdivmod__(self: Self, other: Any, /) -> OP2:
         "This magic method implements divmod(other, self)."
         return (other // self), (other % self)
 
-    def __rfloordiv__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rfloordiv__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other//self."
         return self.__op2(operator.floordiv, other, self)
 
-    def __rlshift__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rlshift__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other<<self."
         return self.__op2(operator.lshift, other, self)
 
-    def __rmod__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rmod__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other%self."
         return self.__op2(operator.mod, other, self)
 
-    def __rmul__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rmul__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other*self."
         return self.__op2(operator.mul, other, self)
 
-    def __ror__(self: Self, other: SupportsIndex, /) -> Self:
+    def __ror__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other|self."
         return self.__op2(operator.or_, other, self)
 
-    def __rpow__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rpow__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other**self."
         return self.__op2(operator.pow, other, self)
 
-    def __rrshift__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rrshift__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other>>self."
         return self.__op2(operator.rshift, other, self)
 
-    def __rsub__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rsub__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other-self."
         return self.__op2(operator.sub, other, self)
 
-    def __rxor__(self: Self, other: SupportsIndex, /) -> Self:
+    def __rxor__(self: Self, other: Any, /) -> OP2:
         "This magic method implements other^self."
         return self.__op2(operator.xor, other, self)
